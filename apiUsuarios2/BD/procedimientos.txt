@@ -1,0 +1,49 @@
+-- Procedimiento almacenado para insertar una nueva imagen en la galería
+CREATE PROCEDURE InsertarImagen
+    @nombre_obra VARCHAR(100),
+    @nombre_autor VARCHAR(100),
+    @imagen VARBINARY(MAX),
+    @codigo_imagen TEXT,
+    @fecha_creacion DATE
+AS
+BEGIN
+    INSERT INTO galeria_virtual (nombre_obra, nombre_autor, imagen, codigo_imagen, fecha_creacion)
+    VALUES (@nombre_obra, @nombre_autor, @imagen, @codigo_imagen, @fecha_creacion);
+END;
+GO
+
+-- Procedimiento almacenado para obtener todas las imágenes de un autor específico
+CREATE PROCEDURE ObtenerImagenesPorAutor
+    @nombre_autor VARCHAR(100)
+AS
+BEGIN
+    SELECT * FROM galeria_virtual WHERE nombre_autor = @nombre_autor;
+END;
+GO
+
+-- Procedimiento almacenado para obtener la imagen más reciente creada
+CREATE PROCEDURE ObtenerImagenMasReciente
+AS
+BEGIN
+    SELECT TOP 1 * FROM galeria_virtual ORDER BY fecha_creacion DESC;
+END;
+GO
+
+-- Procedimiento almacenado para actualizar el nombre de una obra específica
+CREATE PROCEDURE ActualizarNombreObra
+    @id INT,
+    @nuevo_nombre VARCHAR(100)
+AS
+BEGIN
+    UPDATE galeria_virtual SET nombre_obra = @nuevo_nombre WHERE id = @id;
+END;
+GO
+
+-- Procedimiento almacenado para eliminar una imagen de la galería
+CREATE PROCEDURE EliminarImagen
+    @id INT
+AS
+BEGIN
+    DELETE FROM galeria_virtual WHERE id = @id;
+END;
+GO

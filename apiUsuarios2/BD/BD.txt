@@ -1,0 +1,37 @@
+-- Creación de la tabla para la galería virtual
+CREATE TABLE galeria_virtual (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    nombre_obra VARCHAR(100) NOT NULL,
+    nombre_autor VARCHAR(100) NOT NULL,
+    imagen VARBINARY(MAX) NOT NULL,
+    codigo_imagen TEXT NOT NULL,
+    fecha_creacion DATE NOT NULL
+);
+
+-- Inserción de una nueva imagen
+INSERT INTO galeria_virtual (nombre_obra, nombre_autor, imagen, codigo_imagen, fecha_creacion)
+VALUES ('Obra 1', 'Autor 1', 0x72657475612F696D6167656E312E6A7067, '12345', '2023-06-01');
+
+-- Inserción de una nueva imagen
+INSERT INTO galeria_virtual (nombre_obra, nombre_autor, imagen, codigo_imagen, fecha_creacion)
+VALUES ('Obra 2', 'Autor 2', 0x72657475612F696D6167656E322E6A7067, '67890', '2023-06-15');
+
+-- Inserción de otra imagen
+INSERT INTO galeria_virtual (nombre_obra, nombre_autor, imagen, codigo_imagen, fecha_creacion)
+VALUES ('Obra 3', 'Autor 1', 0x72657475612F696D6167656E332E6A7067, 'ABCDE', '2023-06-20');
+
+-- Inserción de una imagen adicional
+INSERT INTO galeria_virtual (nombre_obra, nombre_autor, imagen, codigo_imagen, fecha_creacion)
+VALUES ('Obra 4', 'Autor 3', 0x72657475612F696D6167656E342E6A7067, 'FGHIJ', '2023-06-25');
+
+-- Obtener todas las imágenes de un autor específico
+SELECT * FROM galeria_virtual WHERE nombre_autor = 'Autor 1';
+
+-- Obtener la imagen más reciente creada
+SELECT TOP 1 * FROM galeria_virtual ORDER BY fecha_creacion DESC;
+
+-- Actualizar el nombre de una obra específica
+UPDATE galeria_virtual SET nombre_obra = 'Nuevo nombre' WHERE id = 1;
+
+-- Eliminar una imagen de la base de datos
+DELETE FROM galeria_virtual WHERE id = 1;
